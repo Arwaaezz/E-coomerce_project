@@ -1,22 +1,14 @@
 import React from "react";
 import { Product } from "@/interfaces";
-import { Params } from "next/dist/server/request/params";
 import WishlistButton from "@/components/wishlist/WishlistButton";
-
 import ProductGallery from "@/components/product/ProductGallery";
-
-import { Button } from "@/components/ui/button";
-import { Heart, Star } from "lucide-react";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Star } from "lucide-react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import AddToCard from "@/components/addToCart/AddToCard";
 
+type Props = {
+  params: Promise<{ productId: string }>;
+};
 function Stars({ value = 0 }: { value?: number }) {
   const v = Number.isFinite(value) ? value : 0;
   const full = Math.floor(v);
@@ -49,9 +41,8 @@ function Stars({ value = 0 }: { value?: number }) {
   );
 }
 
-export default async function Details({ params }: { params: Params }) {
-  // ✅ زي ما انتي عاملة (بدون تعديل)
-  let { productId } = await params;
+export default async function Details({ params }: Props) {
+  const { productId } = await params;
 
   const response = await fetch(
     "https://ecommerce.routemisr.com/api/v1/products/" + productId,
@@ -63,6 +54,7 @@ export default async function Details({ params }: { params: Params }) {
   const gallery = [product.imageCover, ...(product.images ?? [])];
 
   return (
+  
     <section className="container mx-auto px-4 py-10">
       <Card className="mx-auto w-full max-w-6xl overflow-hidden rounded-3xl border bg-background shadow-sm">
         <div className="grid gap-0 md:grid-cols-2">

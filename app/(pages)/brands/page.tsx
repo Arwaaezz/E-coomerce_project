@@ -25,12 +25,13 @@ export default async function BrandsPage() {
               <CardHeader className="p-0">
                 <Link href={`/brands/${bid}`} className="block">
                   <div className="relative aspect-[4/3] w-full overflow-hidden bg-white">
-                    <Image
-                      src={b.image}
-                      alt={b.name}
-                      fill
-                      className="object-contain p-6 transition-transform duration-300 group-hover:scale-105"
-                    />
+                <Image
+  src={b.image ?? "/placeholder.png"}
+  alt={b.name ?? "Brand"}
+  fill
+  className="object-contain p-6 transition-transform duration-300 group-hover:scale-105"
+/>
+
                   </div>
                 </Link>
               </CardHeader>

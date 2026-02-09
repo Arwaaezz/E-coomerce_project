@@ -1,6 +1,6 @@
 import BrandDetailsCard from "@/components/brand/BrandDetailsCard";
 import ProductCardLite from "@/components/product/ProductCardLite";
-import { ApiListResponse, Brand, Product } from "@/interfaces";
+import { Brand, Product } from "@/interfaces";
 
 async function fetchBrandProducts(brandId: string) {
   const urls = [
@@ -28,8 +28,12 @@ async function fetchBrandProducts(brandId: string) {
   return [];
 }
 
-export default async function BrandDetails({ params }: { params: { brandId: string } }) {
-  const { brandId } = params;
+type Props = {
+  params: Promise<{ brandId: string }>;
+};
+
+export default async function BrandDetails({ params }: Props) {
+  const { brandId } = await params; // ✅ أهم سطر
 
   const brandRes = await fetch(
     `https://ecommerce.routemisr.com/api/v1/brands/${brandId}`,

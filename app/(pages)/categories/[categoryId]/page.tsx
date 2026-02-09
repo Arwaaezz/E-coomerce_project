@@ -1,8 +1,7 @@
-import { ApiListResponse, Category, Product } from "@/interfaces";
+import { Category, Product } from "@/interfaces";
 import ProductCardLite from "@/components/product/ProductCardLite";
 
 async function fetchCategoryProducts(categoryId: string) {
-  // جرّب أكتر من شكل للفلترة (حسب الـ API)
   const tryUrls = [
     (() => {
       const u = new URL("https://ecommerce.routemisr.com/api/v1/products");
@@ -28,8 +27,12 @@ async function fetchCategoryProducts(categoryId: string) {
   return [];
 }
 
-export default async function CategoryDetails({ params }: { params: { categoryId: string } }) {
-  const { categoryId } = params;
+type Props = {
+  params: Promise<{ categoryId: string }>;
+};
+
+export default async function CategoryDetails({ params }: Props) {
+  const { categoryId } = await params;
 
   const catRes = await fetch(
     `https://ecommerce.routemisr.com/api/v1/categories/${categoryId}`,

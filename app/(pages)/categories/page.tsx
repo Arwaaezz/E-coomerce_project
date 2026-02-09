@@ -25,12 +25,13 @@ export default async function CategoriesPage() {
               <CardHeader className="p-0">
                 <Link href={`/categories/${cid}`} className="block">
                   <div className="relative aspect-[4/3] w-full overflow-hidden bg-muted/20">
-                    <Image
-                      src={c.image}
-                      alt={c.name}
-                      fill
-                      className="object-cover transition-transform duration-300 group-hover:scale-105"
-                    />
+                <Image
+  src={c.image ?? "/placeholder.png"}
+  alt={c.name ?? "Category"}
+  fill
+  className="object-cover transition-transform duration-300 group-hover:scale-105"
+/>
+
                   </div>
                 </Link>
               </CardHeader>
